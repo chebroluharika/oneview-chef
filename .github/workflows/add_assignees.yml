@@ -24,5 +24,5 @@ jobs:
       - name: Add pull request reviewer
         uses: AveryCameronUofR/add-reviewer-gh-action@1.0.3
         with:
-          reviewers: chebroluharika
+          reviewers: RavulaVenkatesh
           token: ${{ secrets.GITHUB_TOKEN }}
