@@ -1,20 +1,25 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the feature branch
+name: Create Pull Request Example Command
 on:
-  push
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+  repository_dispatch:
+    types: [cpr-example-command]
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  createPullRequest:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v3
+      - uses: actions/checkout@v2
+
+      - name: Create Pull Request
+        id: cpr
+        uses: ./
+        with:
+          commit-message: Config changes to support new OV
+          committer: GitHub <chebroluharika@github.com>
+          title: '[Example] Config changes'
+          labels: |
+            report
+            automated pr
+          reviewers: VenkateshRavula
+          milestone: 1
+          draft: false
+          branch: feature
+          delete-branch: true
