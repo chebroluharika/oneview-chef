@@ -1,25 +1,18 @@
-name: Create Pull Request Example Command
-on:
-  repository_dispatch:
-    types: [cpr-example-command]
+name: GitHub Pull Request Action
+on: push
 jobs:
-  createPullRequest:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
 
-      - name: Create Pull Request
-        id: cpr
-        uses: ./
-        with:
-          commit-message: Config changes to support new OV
-          committer: GitHub <chebroluharika@github.com>
-          title: '[Example] Config changes'
-          labels: |
-            report
-            automated pr
-          reviewers: VenkateshRavula
-          milestone: 1
-          draft: false
-          branch: feature
-          delete-branch: true
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: creates PR
+      uses: repo-sync/pull-request@v2.4.1
+      with:
+        # Branch name to sync to in this repo, default is master
+        destination_branch: master
+        # GitHub token secret
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        pr_reviewer: VenkateshRavula
